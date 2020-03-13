@@ -1,0 +1,6 @@
+#!/bin/bash
+#cd ~/IdeaProjects/YTApi/ || exit
+sbt clean
+sbt compile
+sbt "run AIzaSyC8ntHInRTmNaECJs9o3ySZMo58AVcugsg"
+sbt "testOnly org.ua.ilm.datamining.crawlers.youtube.CrawlerChannelsTest -- -Dkey=AIzaSyC8ntHInRTmNaECJs9o3ySZMo58AVcugsg -DidChannels=UCU7iRrk3xfpUk0R6VdyC1Ow,UCR-Hcwi27-Ee6VnGzmxE1pA,UCWJ2lWNubArHWmf3FIHbfcQ,UCR4s1DE9J4DHzZYXMltSMAg,UCZGYJFUizSax-yElQaFDp5Q"
