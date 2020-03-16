@@ -6,12 +6,12 @@ class CrawlerChannelsTest extends org.scalatest.FunSuite with BeforeAndAfterAllC
   private var testConfig: Option[String] = None
   private var testIdChannels: Option[String] = None
 
-  test("CrawlerChannels.channelListRequest") {
+  test("CrawlerChannels.getChannelListRequest(The number of Channels ids before and after the request should be the same.)") {
     val key = testConfig.get
-    val idChannels = testIdChannels.get
+    val idChannels = testIdChannels.toList.toArray
     val actualSizeListChannels = idChannels.count(_ == ',') + 1
     val crawlerChannels = new CrawlerChannels(key, idChannels, None)
-    val expectedSizeListChannels = crawlerChannels.channelListRequest().getItems.size()
+    val expectedSizeListChannels = crawlerChannels.getChannelJsons.length
     assert(expectedSizeListChannels == actualSizeListChannels)
   }
 
