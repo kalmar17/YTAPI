@@ -1,5 +1,7 @@
 package org.ua.ilm.entity.parse
 
+import java.util.concurrent.Callable
+
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import org.ua.ilm.entity.Channel
@@ -16,4 +18,5 @@ class YouTubeChannelParser {
     val description = jsonNode.findValue("description").asText()
     Channel(title, keywords, subscriberCount, viewCount, description)
   }
+
 }

@@ -3,7 +3,7 @@ package org.ua.ilm.entity.parse
 import org.ua.ilm.entity.Channel
 
 class ChannelParserTest extends org.scalatest.FunSuite {
-  test("ChannelParser.parse") {
+  test("YoutubeChannelParser.parse") {
     val title = "NBA"
     val keywords = "NBA \"Full Game Recaps\" \"Full Game Highlights\""
     val subscriberCount = 13500000

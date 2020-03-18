@@ -1,14 +1,10 @@
 package org.ua.ilm
 
-import java.io.{File, FileNotFoundException}
+import java.io.File
 
-import org.ua.ilm.datamining.crawlers.youtube.ParallelCrawlerChannels
-import org.ua.ilm.entity.parse.ParallelYouTubeChannelParser
+import org.ua.ilm.akka.MainActor
 import org.ua.ilm.datastore.io.config.reader.ConfigurationFileReader
 import org.ua.ilm.datastore.io.reader.FileReader
-import org.ua.ilm.datastore.io.writer.FileWriter
-
-import scala.util.{Failure, Success, Try}
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -27,22 +23,11 @@ object Main {
 
       val channelIdsReader = new FileReader(channelIds).readFileWithSeparator()
       val channelIdsArr = channelIdsReader.split(',')
+      val channelsList = MainActor.parallelCrawlerChannels(key.get, channelIdsArr, partChannels, numberOfThreads.get.toInt)
 
-      val crawler = new ParallelCrawlerChannels(key.get, channelIdsArr, partChannels, numberOfThreads.get.toInt)
-      val channelJsons = crawler.getChannelJsons
-
-      val writer = new FileWriter(pathOutFile)
-      val result = Try(writer.writeFile(channelJsons))
-      result match {
-        case Success(value) => println("It`s OK!")
-        case Failure(exception: FileNotFoundException) => println("No such file: " + exception)
-        case Failure(ex) => println(ex)
-      }
-      val channelList = new ParallelYouTubeChannelParser(numberOfThreads.get.toInt).getChannels(channelJsons)
-      channelList.foreach(println)
+      channelsList.foreach(println)
     }
     else
       println("key is empty")
   }
-
 }
