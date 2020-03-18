@@ -1,15 +1,14 @@
-package org.ua.ilm.Entity
-
-import java.util.concurrent.Callable
+package org.ua.ilm.entity.parse
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
+import org.ua.ilm.entity.Channel
 
-object YoutubeChannelParser {
+class YouTubeChannelParser {
   val mapper = new ObjectMapper() with ScalaObjectMapper
 
-  def parse(string: String): Channel = {
-    val jsonNode = mapper.readTree(string)
+  def parse(channelJson: String): Channel = {
+    val jsonNode = mapper.readTree(channelJson)
     val title = jsonNode.findValue("title").asText()
     val keywords = jsonNode.findValue("keywords").asText()
     val subscriberCount = jsonNode.findValue("subscriberCount").asLong()
@@ -17,5 +16,4 @@ object YoutubeChannelParser {
     val description = jsonNode.findValue("description").asText()
     Channel(title, keywords, subscriberCount, viewCount, description)
   }
-
 }

@@ -11,7 +11,7 @@ class CrawlerChannelsTest extends org.scalatest.FunSuite with BeforeAndAfterAllC
     val idChannels = testIdChannels.get
     val actualSizeListChannels = idChannels.count(_ == ',') + 1
     val crawlerChannels = new CrawlerChannels(key, idChannels, None)
-    val expectedSizeListChannels = crawlerChannels.channelListRequest().getItems.size()
+    val expectedSizeListChannels = crawlerChannels.getChannelJsons.length
     assert(expectedSizeListChannels == actualSizeListChannels)
   }
 
