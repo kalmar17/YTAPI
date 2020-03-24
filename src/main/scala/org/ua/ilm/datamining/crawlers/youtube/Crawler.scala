@@ -11,7 +11,7 @@ class Crawler(private val key: String) {
     val transport = new NetHttpTransport()
     val factory = new JacksonFactory()
     val httpRequestInit = new HttpRequestInitializer {
-      override def initialize(re: HttpRequest) = {}
+      override def initialize(re: HttpRequest): Unit = {}
     }
     new YouTube.Builder(transport, factory, httpRequestInit)
       .setApplicationName(appName).setYouTubeRequestInitializer(new YouTubeRequestInitializer(key)).build()
